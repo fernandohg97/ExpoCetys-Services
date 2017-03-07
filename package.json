@@ -3,5 +3,7 @@
   "main": "server.js",
   "version": "0.0.1",
   "dependencies": {
+    "expressjs": "^1.0.1",
+    "mongoose": "^4.8.6"
   }
 }
