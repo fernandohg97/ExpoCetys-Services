@@ -1,20 +1,25 @@
-//PRODUCT
-{
-    var mongoose     = require('mongoose');
-    var Schema       = mongoose.Schema;
-    var productSchema = new schema({
-        id : ObjectId,
-        name: {type: String, index:{unique: true}},
-        description: {type:String, required: true},
-        unitPrice:{type: Number, required:true},
-presentations: [{type:Array, required:true,
-        servings: Number,
-        discount: {
-            percentage:{type:Number, required:true},
-            expirationDate:{type:Date, required:true},
-        },
-        availability:{type:String, required:true},
-        availableDate:{type:Date, required:true}
-    }]
-})
+/**
+ * Created by Fiorella Hernandez on 3/4/17.
+ */
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var presentationDocument = new Schema({
+    servings: {type: Number, required: true},
+    discount: {
+        percentage: {type: Number, required: true},
+        expirationDate: {type: Date, required: true}
+    },
+    availability: {type: String, required: true},
+    availableDate: {type: Date, required: true}
+});
+
+var productSchema = new Schema({
+    id: Schema.Types.ObjectId,
+    name: {type: String, index: {unique: true}},
+    description: {type: String, required: true},
+    unitPrice: {type: Number, required: true},
+    presentations: [presentationDocument]
+});
+
 module.exports = mongoose.model('Product', productSchema);
