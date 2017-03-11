@@ -10,7 +10,7 @@ var presentationDocument = new Schema({
         percentage: {type: Number, required: true},
         expirationDate: {type: Date, required: true}
     },
-    availability: {type: String, required: true},
+    availability: {type: Number, required: true},
     availableDate: {type: Date, required: true}
 });
 
