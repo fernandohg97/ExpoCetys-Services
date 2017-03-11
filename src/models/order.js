@@ -6,7 +6,6 @@ var Schema = moongose.Schema;
 
 var orderSchema = new Schema({
   {
-    id: ObjectId,
     details: [{type: Array, required: true,
       product: {
         name: String,
