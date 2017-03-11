@@ -1,17 +1,14 @@
 //Client
 
 var mongoose = require("mongoose");
-var schema = mongoose.schema;
-var clientSchema = new schema({
+var Schema = mongoose.schema;
 
-    id: ObjectId,
+var clientSchema = new Schema({
     firstName:{type String, required: true},
     lastName:{type String, required:true},
-    email: {type String, required:true},
+    email: {type String, required:true, index: true},
     password:{type String, required:true},
-
     address:{
-
         firstStreet: {type:String, required:true},
         secondStreet: String,
         postalCode: {type:String, required:true},
@@ -23,15 +20,15 @@ var clientSchema = new schema({
         cardNumber: {type:String, required:true},
         holderName:{type:String, required:true},
         expirationDate: {type:String, required:true},
-        address: {type:String, required:true,
-            firstStreet: String,
+        address:{
+           firstStreet: {type:String, required:true},
             secondStreet: String,
-            postalCode: String,
-            city: String,
-            state: String,
-            phone: String
-
+            postalCode: {type:String, required:true},
+            city: {type:String, required:true},
+            state: {type:String, required:true},
+            phone: {type:String, required:true},
         }
     }
 });
+
 module.exports = mongoose.model('Client', clientSchema);
