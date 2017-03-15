@@ -7,7 +7,7 @@ var Schema = moongose.Schema;
 var orderSchema = new Schema({
 
     id: Schema.Types.ObjectId,
-    details: [{type: Array, required: true,
+    details: [{formType: Array,
       product: {
         name: String,
         unitPrice: Number,
@@ -18,8 +18,8 @@ var orderSchema = new Schema({
       },
       quantity: Number
     }],
-    orderDate: {type: Date, required: true},
-    deliveryDate: {type: Date, required: true},
+    orderDate: {type: Date},
+    deliveryDate: {type: Date},
     client: { type: Schema.Types.ObjectId, ref: "Client"}
 
 });
