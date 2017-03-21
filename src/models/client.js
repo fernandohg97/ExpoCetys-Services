@@ -1,10 +1,10 @@
 /**
  * Created by Daniel Valdez on 3/4/17.
  */
-var mongoose = require("mongoose");
-var Schema = mongoose.schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.schema;
 
-var addressSchema = new Schema({
+const AddressSchema = new Schema({
     firstStreet: {type: String, required: true},
     secondStreet: String,
     postalCode: {type: String, required: true},
@@ -13,18 +13,20 @@ var addressSchema = new Schema({
     phone: {type: String, required: true}
 });
 
-var clientSchema = new Schema({
+const AccountSchema = new Schema({
+    cardNumber: {type: String, required: true},
+    holderName: {type: String, required: true},
+    expirationDate: {type: String, required: true},
+    address: AddressSchema
+});
+
+const ClientSchema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     email: {type: String, required: true, index: true},
     password: {type: String, required: true},
-    address: {type: Schema.Types.ObjectId, ref: addressSchema},
-    account: {
-        cardNumber: {type: String, required: true},
-        holderName: {type: String, required: true},
-        expirationDate: {type: String, required: true},
-        address: {type: Schema.Types.ObjectId, ref: addressSchema}
-    }
+    address: AddressSchema,
+    account: AccountSchema
 });
 
-module.exports = mongoose.model('Client', clientSchema);
+module.exports = mongoose.model('Client', ClientSchema);
