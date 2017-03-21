@@ -2,79 +2,86 @@
  * Created by fernandohernandez on 2/18/17.
  */
 
-// call the packages we need
-var express = require("express");
-var app = express();
-var mongoose = require("mongoose");
+// all of our routes will be prefixed with /api
+// server.js
+var mongoose   = require('mongoose');
+mongoose.connect('mongodb://localhost/products');
+
+var express = require("express"); //call express
+var app = express(); //define our app using express
+var Product = require("./src/models/product");
 var bodyParser = require("body-parser");
-var Order = require("./src/models/order");
 
-mongoose.connect("mongodb://localhost/orders"); // Conexion a base de datos MongoDB
+//this will let us get the data from a POST
+app.use(bodyParser.json()); // lee parámetros para peticiones application/json
+app.use(bodyParser.urlencoded({extended:true}));
 
-// this will let us get the data from a POST
-app.use(bodyParser.json()); // para peticiones application/json
-app.use(bodyParser.urlencoded({extended: true}));
+var port = process.env.PORT || 8470;
 
-// Get all the orders in json format
-app.get("/api/orders", function(req, res) {
-    Order.find(function(err, orders) {
-        if (err)  res.send(err);
-          res.json(orders);
-    });
-});
-
-// Get a single order through order_id
-app.get("/api/orders/:order_id", function(req, res) {
-    Order.findById(req.params.order_id, function(err, orders) {
-        if (err)  res.send(err);
-          res.json(orders);
-    });
-});
-
-
-app.post("/api/orders", function(req, res) {
-    // create a js object with the properties of order model
-    var order = new Order(req.body);
-
-    // save the order
-    order.save(function(err) {
-        if (err) res.send(err);
-          res.json({message: "Order created"});
-    });
-});
-
-// Update the order with an id
-app.put("/api/orders/:order_id", function(req, res) {
-    // Find an order by order_id
-    Order.findById(req.params.order_id, function(err, order) {
-        if (err)  res.send(err);
-
-          order.details = req.body.details;
-          order.name = req.body.name;
-          order.unitPrice = req.body.unitPrice;
-          order.servings = req.body.servings;
-          order.discountPercentage = req.body.discountPercentage;
-          order.quantity = req.body.quantity;
-          order.orderDate = req.body.orderDate;
-          order.deliveryDate = req.body.deliveryDate;
-
-        // save the order
-        order.save(function(err) {
-          if (err)  res.send(err);
-            res.json({message: "Order updated"});
-        });
-    });
-});
-
-// Delete the order
-app.delete("/api/orders/:order_id", function(req, res) {
-    Order.remove({_id: req.params.order_id}, function(err, orders){
-      if (err)  res.send(err);
-        res.json({message: "Successfully deleted"});
+// get all the products (accessed at GET http://localhost:8757/api/products))
+app.get("/api/products/", function(req, res) {
+        Product.find(function(err, products) {
+            if (err)
+                res.send(err);
+              res.json(products);
       });
 });
 
-// Port where the server runs
-app.listen(8470, () => {
-  console.log('Listening at 8470');
+// get the product with that id(accessed at GET http://localhost:8757/api/products/:product_id) )
+app.get("/api/products/:product_id",function(req,res){
+  Product.findById(req.params.product_id,function(err, product){
+    if(err)
+          res.send(err);
+        res.json(product);
+  });
 });
+
+app.post("/api/products", function (req,res) {
+  var product = new Product();  // create a new instance of the product model
+  product.name = req.body.name;
+  product.description = req.body.description;
+  product.unitPrice = req.body.unitPrice;
+  product.presentations = req.body.presentations;
+  //save the product and check for errors
+  res.send("Método post");
+  product.save(function(err){
+    if (err)
+        res.send(err);
+      res.json({message:'Product created'});
+    });
+});
+
+// update the bear with this id (accessed at PUT http://localhost:8757/api/products/:product_id)
+app.put("/api/products/:product_id",function(req, res){
+  Product.findById(req.params.product_id, function(err, product){
+    product.name = req.body.name;
+    product.description = req.body.description;
+    product.unitPrice = req.body.unitPrice;
+    product.presentations = req.body.presentations;
+    if(err)
+      res.send(err);
+
+    product.name=req.body.name; //update the products info
+    //save the product
+    product.save(function(err){
+      if (err)
+        res.send(err);
+      res.json({message:"Product updated!"});
+    });
+  });
+});
+
+// delete the product with this id (accessed at DELETE http://localhost:8757/api/products/:product_id)
+app.delete("/api/products/:product_id", function(req, res){
+  Product.remove({
+    _id: req.params.product_id
+  }, function(err, product){
+    if(err)
+      res.send(err);
+    res.json({message: "Successfully deleted"});
+  });
+});
+
+app.listen(port, function(){
+    console.log("app started");
+    console.log("Server on port: " + port);

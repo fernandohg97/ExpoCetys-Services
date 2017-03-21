@@ -1,6 +1,7 @@
 /**
  * Created by Fiorella Rodríguez on 3/4/17.
  */
+ //models/product.js
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
