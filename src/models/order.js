@@ -4,23 +4,23 @@
 var moongose = require("mongoose");
 var Schema = moongose.Schema;
 
-var detailSchema = new Schema({
-    product: {
-        name: String,
-        unitPrice: Number,
-        presentation: {
-            servings: Number,
-            discountPercentage: Number
-        }
-    },
-    quantity: Number
-});
+var orderDetailSchema = new Schema({
+  product: {
+    name: {type: String, required: true},
+    unitPrice: {type: Number, required: true},
+    presentation: {
+      servings: {type: Number, required: true},
+      discountPercentage: {type: Number, required: true}
+    }
+  },
+  quantity: {type: Number, required: true}
+})
 
 var orderSchema = new Schema({
-    details: [detailSchema],
+    details: [orderDetailSchema],
     orderDate: {type: Date, required: true},
     deliveryDate: {type: Date, required: true},
-    client: {type: Schema.Types.ObjectId, ref: "Client"}
+    client: { type: Schema.Types.ObjectId, ref: "Client"}
 });
 
 module.exports = moongose.model("Order", orderSchema);

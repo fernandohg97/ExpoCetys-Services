@@ -1,5 +1,5 @@
 /**
- * Created by Fiorella Hernandez on 3/4/17.
+ * Created by Fiorella Rodríguez on 3/4/17.
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
