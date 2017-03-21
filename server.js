@@ -46,12 +46,12 @@ app.post("/api/orders", function(req, res) {
 // Update the order with an id
 app.put("/api/orders/:order_id", function(req, res) {
     // Find an order by order_id
-    Order.findById(req.params.order_id, function(err, orders) {
+    Order.findById(req.params.order_id, function(err, order) {
         if (err)  res.send(err);
 
           order.details = req.body.details;
           order.name = req.body.name;
-          order.unitPrice = rq.body.unitPrice;
+          order.unitPrice = req.body.unitPrice;
           order.servings = req.body.servings;
           order.discountPercentage = req.body.discountPercentage;
           order.quantity = req.body.quantity;
