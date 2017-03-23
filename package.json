@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "expressjs": "^1.0.1",
-    "joi": "^10.2.2",
+    "express": "^4.15.2",
     "mongoose": "^4.8.6"
   },
   "devDependencies": {
