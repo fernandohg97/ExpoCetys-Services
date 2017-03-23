@@ -2,66 +2,51 @@ const productRouter = require('express').Router();
 const Product = require('./product.model');
 
 productRouter.get('/', (req, res) => {
-    Product.find((err, products) => {
-        if (err)
-            res.send(err);
+    let findPromise = Product.find().exec();
+
+    findPromise.then(products => {
         res.json(products);
+    }).catch(err => {
+        res.send(err);
     });
 });
 
 productRouter.get('/:product_id', (req, res) => {
-    Product.findById(req.params.product_id, (err, product) => {
-        if (err)
-            res.send(err);
+    let findPromise = Product.findById(req.params.product_id).exec();
+
+    findPromise.then(product => {
         res.json(product);
+    }).catch(err => {
+        res.send(err);
     });
 });
 
-productRouter.post("/api/products", (req, res) => {
-    let product = new Product();
+productRouter.post('/', (req, res) => {
+    let product = new Product(req.body);
+    let savePromise = product.save().exec();
 
-    product.name = req.body.name;
-    product.description = req.body.description;
-    product.unitPrice = req.body.unitPrice;
-    product.presentations = req.body.presentations;
-
-    res.send("Método post");
-
-    product.save(err => {
-        if (err) res.send(err);
-
-        res.json({message: 'Product created'});
-    });
-
-});
-
-productRouter.put("/api/products/:product_id", (req, res) => {
-    Product.findById(req.params.product_id, (err, product) => {
-
-        product.name = req.body.name;
-        product.description = req.body.description;
-        product.unitPrice = req.body.unitPrice;
-        product.presentations = req.body.presentations;
-
-        if (err)
-            res.send(err);
-
-        product.save(err => {
-            if (err)
-                res.send(err);
-            res.json({message: "Product updated!"});
-        });
-
+    savePromise.then(() => {
+        res.json({message: 'Created'})
+    }).catch(err => {
+        res.send(err);
     });
 });
 
-productRouter.delete("/api/products/:product_id", (req, res) => {
-    Product.remove({
-        _id: req.params.product_id
-    }, (err, product) => {
-        if (err)
-            res.send(err);
-        res.json({message: "Successfully deleted"});
+productRouter.put('/:product_id', (req, res) => {
+    let updatePromise = Product.findByIdAndUpdate(req.params.product_id, {$set: req.body}).exec();
+
+    updatePromise.then(product => {
+        res.json({message: "Updated"})
+    }).catch(err => {
+        res.send(err);
+    });
+});
+
+productRouter.delete('/:product_id', (req, res) => {
+    let removePromise = Product.findByIdAndRemove(req.params.product_id).exec();
+
+    removePromise.catch(err => {
+        res.send(err);
     });
 });
 

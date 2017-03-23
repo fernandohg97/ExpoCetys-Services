@@ -5,10 +5,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const config = require('./app.config');
 const router = require('./app.router');
 const app = express();
 
-mongoose.connect('mongodb://localhost/GoCenter');
+mongoose.connect(config['connectionString']);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

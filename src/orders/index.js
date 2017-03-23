@@ -2,57 +2,51 @@ const orderRouter = require('express').Router();
 const Order = require('./order.model');
 
 orderRouter.get('/', (req, res) => {
-    Order.find((err, orders) => {
-        if (err)
-            res.send(err);
+    let findPromise = Order.find().exec();
+
+    findPromise.then(orders => {
         res.json(orders);
+    }).catch(err => {
+        res.send(err);
     });
 });
 
 orderRouter.get('/:order_id', (req, res) => {
-    Order.findById(req.params.order_id, (err, orders) => {
-        if (err)
-            res.send(err);
-        res.json(orders);
+    let findPromise = Order.findById(req.params.order_id).exec();
+
+    findPromise.then(order => {
+        res.json(order);
+    }).catch(err => {
+        res.send(err);
     });
 });
 
 orderRouter.post('/', (req, res) => {
     let order = new Order(req.body);
+    let savePromise = order.save().exec();
 
-    order.save(err => {
-        if (err)
-            res.send(err);
-        res.json({message: 'Order created'});
+    savePromise.then(() => {
+        res.json({message: 'Created'})
+    }).catch(err => {
+        res.send(err);
     });
 });
 
 orderRouter.put('/:order_id', (req, res) => {
-    Order.findById(req.params.order_id, (err, order) => {
-        if (err)
-            res.send(err);
+    let updatePromise = Order.findByIdAndUpdate(req.params.order_id, {$set: req.body}).exec();
 
-        order.details = req.body.details;
-        order.name = req.body.name;
-        order.unitPrice = req.body.unitPrice;
-        order.servings = req.body.servings;
-        order.discountPercentage = req.body.discountPercentage;
-        order.quantity = req.body.quantity;
-        order.orderDate = req.body.orderDate;
-        order.deliveryDate = req.body.deliveryDate;
-
-        order.save(err => {
-            if (err) res.send(err);
-            res.json({message: 'Order updated'});
-        });
+    updatePromise.then(order => {
+        res.json({message: "Updated"})
+    }).catch(err => {
+        res.send(err);
     });
 });
 
 orderRouter.delete('/:order_id', (req, res) => {
-    Order.remove({_id: req.params.order_id}, (err, orders) => {
-        if (err)
-            res.send(err);
-        res.json({message: 'Successfully deleted'});
+    let removePromise = Order.findByIdAndRemove(req.params.order_id).exec();
+
+    removePromise.catch(err => {
+        res.send(err);
     });
 });
 
