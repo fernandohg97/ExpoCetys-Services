@@ -10,7 +10,7 @@ const OrderDetailSchema = new Schema({
         unitPrice: {type: Number, required: true},
         presentation: {
             servings: {type: Number, required: true},
-            discountPercentage: {type: Number, required: true}
+            discountPercentage: Number
         }
     },
     quantity: {type: Number, required: true}

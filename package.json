@@ -5,6 +5,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "expressjs": "^1.0.1",
+    "joi": "^10.2.2",
     "mongoose": "^4.8.6"
   },
   "devDependencies": {

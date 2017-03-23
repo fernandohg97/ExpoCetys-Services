@@ -2,7 +2,7 @@
  * Created by Daniel Valdez on 3/4/17.
  */
 const mongoose = require("mongoose");
-const Schema = mongoose.schema;
+const Schema = mongoose.Schema;
 
 const AddressSchema = new Schema({
     firstStreet: {type: String, required: true},
