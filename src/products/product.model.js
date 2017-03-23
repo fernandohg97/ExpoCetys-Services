@@ -10,7 +10,12 @@ const productPresentationSchema = new Schema({
         percentage: {type: Number, required: true},
         expirationDate: {type: Date, required: true}
     },
-    availability: {type: String, enum: ['InStock', 'OutOfStock', 'Discontinued'], required: true},
+    availability: {
+        type: String,
+        enum: ['InStock', 'OutOfStock', 'Discontinued'],
+        default: 'InStock',
+        required: true
+    },
     availableDate: {type: Date, required: true}
 });
 
