@@ -3,7 +3,7 @@
  */
 
 const config = {
-    connectionString: "mongo://localhost/gocenter",
+    connectionString: "mongodb://localhost/gocenter",
     secret: "ybVqGmCC8yhRowEjA8i4NHQTvaOOHpeG"
 };
 

@@ -2,7 +2,7 @@ const orderRouter = require('express').Router();
 const Order = require('./order.model');
 
 orderRouter.get('/', (req, res) => {
-    let findPromise = Order.find().exec();
+    let findPromise = Order.find();
 
     findPromise.then(orders => {
         res.json(orders);
@@ -12,7 +12,7 @@ orderRouter.get('/', (req, res) => {
 });
 
 orderRouter.get('/:order_id', (req, res) => {
-    let findPromise = Order.findById(req.params.order_id).exec();
+    let findPromise = Order.findById(req.params.order_id);
 
     findPromise.then(order => {
         res.json(order);
@@ -23,7 +23,7 @@ orderRouter.get('/:order_id', (req, res) => {
 
 orderRouter.post('/', (req, res) => {
     let order = new Order(req.body);
-    let savePromise = order.save().exec();
+    let savePromise = order.save();
 
     savePromise.then(() => {
         res.json({message: 'Created'})
@@ -33,17 +33,23 @@ orderRouter.post('/', (req, res) => {
 });
 
 orderRouter.put('/:order_id', (req, res) => {
-    let updatePromise = Order.findByIdAndUpdate(req.params.order_id, {$set: req.body}).exec();
+    let updatePromise = Order.findById(req.params.order_id);
 
     updatePromise.then(order => {
-        res.json({message: "Updated"})
+        order = new Order(_.extend(req.body, {_id: req.params.order_id}));
+        order.save();
+    }).then(order => {
+        if (order)
+            res.json(order);
+        else
+            res.status(404).json({message: "Not Found"});
     }).catch(err => {
         res.send(err);
     });
 });
 
 orderRouter.delete('/:order_id', (req, res) => {
-    let removePromise = Order.findByIdAndRemove(req.params.order_id).exec();
+    let removePromise = Order.findByIdAndRemove(req.params.order_id);
 
     removePromise.catch(err => {
         res.send(err);

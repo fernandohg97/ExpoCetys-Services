@@ -3,9 +3,11 @@
   "main": "server.js",
   "version": "0.0.1",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "mongoose": "^4.8.6"
+    "mongoose": "^4.8.6",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel": "^6.23.0"

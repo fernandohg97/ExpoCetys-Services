@@ -1,8 +1,10 @@
 /**
  * Created by Fernando Hernandez on 3/4/17.
  */
-const moongose = require("mongoose");
-const Schema = moongose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+mongoose.Promise = require('bluebird');
 
 const OrderDetailSchema = new Schema({
     product: {
@@ -23,4 +25,4 @@ const OrderSchema = new Schema({
     client: {type: Schema.Types.ObjectId, ref: "Client"}
 });
 
-module.exports = moongose.model("Order", OrderSchema);
+module.exports = mongoose.model("Order", OrderSchema);

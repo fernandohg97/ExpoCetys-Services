@@ -1,8 +1,9 @@
+const _ = require('underscore');
 const clientRouter = require('express').Router();
 const Client = require('./client.model');
 
 clientRouter.get('/', (req, res) => {
-    let findPromise = Client.find().exec();
+    let findPromise = Client.find();
 
     findPromise.then(clients => {
         res.json(clients);
@@ -13,7 +14,7 @@ clientRouter.get('/', (req, res) => {
 });
 
 clientRouter.get('/:client_id', (req, res) => {
-    let findPromise = Client.findById(req.params.client_id).exec();
+    let findPromise = Client.findById(req.params.client_id);
 
     findPromise.then(client => {
         if (client)
@@ -29,7 +30,7 @@ clientRouter.get('/:client_id', (req, res) => {
 clientRouter.post('/', (req, res) => {
 
     let client = new Client(req.body);
-    let savePromise = client.save().exec();
+    let savePromise = client.save();
 
     savePromise.then(() => {
         res.json({message: 'Created'})
@@ -41,11 +42,15 @@ clientRouter.post('/', (req, res) => {
 
 clientRouter.put('/:client_id', (req, res) => {
 
-    let updatePromise = Client.findByIdAndUpdate(req.params.client_id, {$set: req.body}).exec();
+    let updatePromise = Client.findById(req.params.client_id);
 
     updatePromise.then(client => {
+        client = new Client(_.extend(req.body, {_id: req.param.client_id}));
+        client.isNew = false;
+        client.save();
+    }).then(client => {
         if (client)
-            res.json({message: 'Updated'});
+            res.json(client);
         else
             res.status(404).json({message: 'Not Found'})
     }).catch(err => {
@@ -56,7 +61,7 @@ clientRouter.put('/:client_id', (req, res) => {
 
 clientRouter.delete('/:client_id', (req, res) => {
 
-    let removePromise = Client.findByIdAndRemove(req.params.client_id).exec();
+    let removePromise = Client.findByIdAndRemove(req.params.client_id);
 
     removePromise.catch(err => {
         res.status(500).send(err);

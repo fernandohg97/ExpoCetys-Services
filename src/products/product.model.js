@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+mongoose.Promise = require('bluebird');
 
 const productPresentationSchema = new Schema({
     servings: {type: Number, required: true},

@@ -4,6 +4,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+mongoose.Promise = require('bluebird');
+
 const AddressSchema = new Schema({
     firstStreet: {type: String, required: true},
     secondStreet: String,
