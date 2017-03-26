@@ -1,3 +1,5 @@
+'use strict';
+
 const orderRouter = require('express').Router();
 const Order = require('./order.model');
 

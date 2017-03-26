@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('underscore');
 const clientRouter = require('express').Router();
 const Client = require('./client.model');
