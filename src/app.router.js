@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Created by jpichardo on 3/21/17.
+ * Created by J. Pichardo on 3/21/17.
  */
 const router = require('express').Router();
 const products = require('./products');
