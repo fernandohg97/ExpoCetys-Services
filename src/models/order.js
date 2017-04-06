@@ -1,5 +1,5 @@
 /**
- * Created by fernandohernandez on 3/4/17.
+ * Created by Fernando Hernandez on 3/4/17.
  */
 var moongose = require("mongoose");
 var Schema = moongose.Schema;
@@ -23,7 +23,6 @@ var orderSchema = new Schema({
     orderDate: {type: Date, validate: [dateValidator, "La fecha de entrega deber ser mayor a la fecha de orden"], required: [true, "La fecha de orden es requerida"]},
     deliveryDate: {type: Date, required: [true, "La fecha de entrega es requerida"]},
     client: { type: Schema.Types.ObjectId, ref: "Client"}
-
 });
 
 module.exports = moongose.model("Order", orderSchema);
