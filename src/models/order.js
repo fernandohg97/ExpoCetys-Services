@@ -3,6 +3,8 @@
  */
 var moongose = require("mongoose");
 var Schema = moongose.Schema;
+var dateValidator = require("./order.validation");
+
 
 var orderDetailSchema = new Schema({
   product: {
@@ -18,8 +20,8 @@ var orderDetailSchema = new Schema({
 
 var orderSchema = new Schema({
     details: [orderDetailSchema],
-    orderDate: {type: Date, required: [true, "Ingresa la fecha de orden"]},
-    deliveryDate: {type: Date, required: [true, "Ingresa la fecha de entrega"]},
+    orderDate: {type: Date, validate: [dateValidator, "La fecha de entrega deber ser mayor a la fecha de orden"], required: [true, "La fecha de orden es requerida"]},
+    deliveryDate: {type: Date, required: [true, "La fecha de entrega es requerida"]},
     client: { type: Schema.Types.ObjectId, ref: "Client"}
 
 });
