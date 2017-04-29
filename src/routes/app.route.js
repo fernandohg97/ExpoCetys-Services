@@ -11,7 +11,7 @@ orderRouter.get('/private', auth, (req, res) => {
 })
 
 // Get all the orders
-orderRouter.get('/orders', OrderCtrl.getOrders)
+orderRouter.get('/orders', auth, OrderCtrl.getOrders)
 
 // Get a single order
 orderRouter.get('/orders/:order_id', auth, OrderCtrl.getOrder)
