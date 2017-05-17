@@ -1,5 +1,5 @@
 'use strict'
-const Order = require('../models/order')
+const Order = require('../models/orders/order')
 
 // Get all the orders
 function getOrders (req, res) {
