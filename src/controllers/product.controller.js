@@ -32,7 +32,7 @@ function createProduct (req, res) {
   let createProduct = product.save()
 
   createProduct.then(product => {
-    res.json({message: 'Order created'})
+    res.json({message: 'Product created'})
   }).catch(err => {
     res.status(500).send({message: 'Error del server ' + err})
   })
@@ -43,7 +43,7 @@ function updateProduct (req, res) {
 
   updateProduct.then(product => {
     if (product) {
-      res.json({message: 'order updated'})
+      res.json({message: 'Product updated'})
     } else { res.status(404).json({message: 'Page not found'}) }
   }).catch(err => {
     res.status(500).json({message: 'Error del server' + err})

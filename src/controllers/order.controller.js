@@ -43,7 +43,7 @@ function updateOrder (req, res) {
 
   updateOrder.then(order => {
     if (order) {
-      res.json({message: 'order updated'})
+      res.json({message: 'Order updated'})
     } else { res.status(404).json({message: 'Page not found'}) }
   }).catch(err => {
     res.status(500).json({message: 'Error del server' + err})

@@ -43,7 +43,7 @@ function updateClient (req, res) {
 
   updateClient.then(client => {
     if (client) {
-      res.json({message: 'client updated'})
+      res.json({message: 'Client updated'})
     } else { res.status(404).json({message: 'Page not found'}) }
   }).catch(err => {
     res.status(500).json({message: 'Error del server' + err})
