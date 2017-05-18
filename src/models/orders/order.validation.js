@@ -32,5 +32,14 @@ class Validation {
     }]
   }
 
+  static get numberValidation () {
+    return ({
+      validator: (number) => {
+        return isNaN(number)
+      },
+      message: 'El descuento debe ser una cantidad numerica'
+    })
+  }
+
 }
 module.exports = Validation

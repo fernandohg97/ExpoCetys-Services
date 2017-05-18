@@ -12,11 +12,11 @@ mongoose.Promise = require('bluebird')
 
 const OrderDetailSchema = new Schema({
   product: {
-    name: {type: String, required: [true, 'El nombre del producto es requerido'], validate: [validator.isAlphanumeric, 'El nombre de la orden puede contener letras y numeros', validator.isAlpha, 'El nombre no puede contener numeros']},
+    name: {type: String, required: [true, 'El nombre del producto es requerido'], validate: [validator.isAlpha, 'El nombre no puede contener numeros']},
     unitPrice: {type: Number, required: [true, 'El precio del producto es requerido']},
     presentation: {
       servings: {type: Number, required: [true, 'La cantidad de servings son requeridos'], validate: valid.presentationValidation},
-      discountPercentage: {type: Number, validate: validator.isNumeric}
+      discountPercentage: {type: Number, validate: valid.numberValidation}
     }
   },
   quantity: {type: Number, required: [true, 'La cantidad de productos es requerido'], min: [1, 'Ingresa una cantidad valida']}
