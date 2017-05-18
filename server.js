@@ -10,7 +10,12 @@ mongoose.connect(config.db, (err, res) => {
   if (err) console.log('Error para conectar con MongoDB: ' + err)
   console.log('Conexion a la base de datos establecida...')
 })
-
+function numero () {
+  if (typeof 60 === 'number') {
+    console.log('Bien')
+  }
+}
+console.log(numero)
 app.listen(config.port, () => {
   console.log('Listening on port ' + config.port)
 })
