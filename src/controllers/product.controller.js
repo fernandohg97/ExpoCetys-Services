@@ -6,6 +6,7 @@ function getProducts (req, res) {
   let findProduct = Product.find()
 
   findProduct.then(product => {
+    console.log(product);
     res.json(product)
   }).catch(err => {
     res.status(500).send(err)
