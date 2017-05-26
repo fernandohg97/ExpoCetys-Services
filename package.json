@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "gocenter",
   "version": "1.0.0",
   "main": "server.js",
@@ -23,5 +24,19 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
+=======
+  "name": "GoCenter-Service",
+  "main": "server.js",
+  "version": "0.0.1",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.8.6",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0"
+>>>>>>> 8a60cc4c54db95b76394fa7ee479804d3ca529ef
   }
 }

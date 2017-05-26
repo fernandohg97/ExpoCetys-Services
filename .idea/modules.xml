@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/GoCenter.iml" filepath="$PROJECT_DIR$/.idea/GoCenter.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/ExpoCetys-Services.iml" filepath="$PROJECT_DIR$/.idea/ExpoCetys-Services.iml" />
+>>>>>>> 8a60cc4c54db95b76394fa7ee479804d3ca529ef
     </modules>
   </component>
 </project>

@@ -3,4 +3,11 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="JsBowerSettings">
+    <exe-path />
+    <config-path />
+  </component>
+>>>>>>> 8a60cc4c54db95b76394fa7ee479804d3ca529ef
 </project>
