@@ -27,6 +27,7 @@ const productSchema = new Schema({
   name: {type: String, required: true, index: {unique: true}},
   description: {type: String, required: true},
   unitPrice: {type: Number, required: true},
+  cover: {type: String, required: true},
   presentations: [productPresentationSchema]
 })
 
